@@ -22,22 +22,28 @@
 
     <main>
       <section class="hero">
-        <div class="wrap hero-copy">
-          <p class="eyebrow">Recruiter-safe case study</p>
-          <h1>Asterisms</h1>
-          <p class="lead">A web game for learning to read the night sky by connecting real stars into constellations and asterisms.</p>
-          <div class="hero-meta">
-            <span class="pill">Role: solo builder</span>
-            <span class="pill">Project type: private full-stack product</span>
-            <span class="pill">Next.js 16.3.4</span>
-            <span class="pill">React 19.2.8</span>
-            <span class="pill">TypeScript 5.9.3</span>
-            <span class="pill">9,036 generated stars</span>
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Recruiter-safe case study</p>
+            <h1>Asterisms</h1>
+            <p class="lead">A web game for learning to read the night sky by connecting real stars into constellations and asterisms.</p>
+            <div class="hero-meta">
+              <span class="pill">Role: solo builder</span>
+              <span class="pill">Project type: private full-stack product</span>
+              <span class="pill">Next.js 16.3.4</span>
+              <span class="pill">React 19.2.8</span>
+              <span class="pill">TypeScript 5.9.3</span>
+              <span class="pill">9,036 generated stars</span>
+            </div>
+            <div class="cta-row">
+              <a class="button" href="https://asterisms.space">Live site</a>
+              <a class="button secondary" href="#quality">Verified status</a>
+            </div>
           </div>
-          <div class="cta-row">
-            <a class="button" href="https://asterisms.space">Live site</a>
-            <a class="button secondary" href="#quality">Verified status</a>
-          </div>
+          <figure class="shot hero-shot">
+            <img src="assets/screenshots/landing-1440.png" alt="The real Asterisms landing hero, showing a constellation, a live Jupiter marker, and the North/South toggle" />
+            <figcaption>The real landing hero, captured from the current build.</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -172,26 +178,20 @@
       </section>
 
       <section id="quality">
-        <div class="wrap grid two">
-          <div>
-            <div class="section-head">
-              <p class="eyebrow">Reliability + Quality</p>
-              <h2>Current validation status.</h2>
-            </div>
-            <ul class="quality">
-              <li>Generated data validation passes with zero warnings and zero hard failures.</li>
-              <li>Vitest passes: 14 test files, 79 tests.</li>
-              <li>TypeScript check passes with no emitted errors.</li>
-              <li>ESLint passes.</li>
-              <li>Production build succeeds and generates 186 static pages plus dynamic app routes.</li>
-              <li>CI runs data validation, tests, typecheck, lint, and build on pushes and pull requests.</li>
-              <li>Security headers, route-level rate limiting, typed analytics wrappers, and database degradation paths are present.</li>
-            </ul>
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Reliability + Quality</p>
+            <h2>Current validation status.</h2>
           </div>
-          <figure class="shot">
-            <img src="assets/screenshots/mobile-daily-clean-390.png" alt="Mobile daily puzzle view" />
-            <figcaption>Mobile daily puzzle view captured at 390 by 844 during visual QA.</figcaption>
-          </figure>
+          <ul class="quality grid two">
+            <li>Generated data validation passes with zero warnings and zero hard failures.</li>
+            <li>Vitest passes: 14 test files, 79 tests.</li>
+            <li>TypeScript check passes with no emitted errors.</li>
+            <li>ESLint passes.</li>
+            <li>Production build succeeds and generates 186 static pages plus dynamic app routes.</li>
+            <li>CI runs data validation, tests, typecheck, lint, and build on pushes and pull requests.</li>
+            <li>Security headers, route-level rate limiting, typed analytics wrappers, and database degradation paths are present.</li>
+          </ul>
         </div>
       </section>
 
