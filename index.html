@@ -27,7 +27,7 @@
           <h1>Asterisms</h1>
           <p class="lead">A web game for learning to read the night sky by connecting real stars into constellations and asterisms.</p>
           <div class="hero-meta">
-            <span class="pill">Role: pending owner confirmation</span>
+            <span class="pill">Role: solo builder</span>
             <span class="pill">Project type: private full-stack product</span>
             <span class="pill">Next.js 16.3.4</span>
             <span class="pill">React 19.2.8</span>
@@ -37,6 +37,16 @@
           <div class="cta-row">
             <a class="button" href="https://asterisms.space">Live site</a>
             <a class="button secondary" href="#quality">Verified status</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="why">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Why I Built It</p>
+            <h2>An existing interest, turned into something I could open too.</h2>
+            <p>I already use apps like Stellarium and I'm genuinely into constellations, asterisms, and the Solar System. I wanted that interest to exist as a product I built myself, not just one I used. Asterisms is solo, started about ten days before this case study, and still actively moving - a v2 aimed at real-time, location-based sky viewing is already planned. Working on it also reinforced something simple: there is a lot of good public data sitting around waiting to be turned into an interface people in a given niche actually want to open.</p>
           </div>
         </div>
       </section>
@@ -114,7 +124,7 @@
           <div class="decision">
             <p class="kicker">Projection</p>
             <h3>Use real RA/Dec with gnomonic projection.</h3>
-            <p><strong>Problem:</strong> hand-positioned stars would make the game easier to fake but less meaningful. <strong>Decision:</strong> project real celestial coordinates onto a tangent plane, then rotate and scale without distorting the pattern. <strong>Trade-off:</strong> projection edge cases and hydration precision needed care.</p>
+            <p><strong>Problem:</strong> hand-positioned stars would make the game easier to fake but less meaningful, and the existing star/constellation catalogues are far denser than a browser can render at full scientific detail. <strong>Decision:</strong> project real celestial coordinates onto a tangent plane, then rotate and scale without distorting the pattern, trimming to what a browser can render smoothly rather than the full catalogue density. <strong>Trade-off:</strong> projection edge cases and hydration precision needed care - this was the hardest part of the build.</p>
           </div>
 
           <div class="decision">
@@ -130,9 +140,9 @@
           </div>
 
           <div class="decision">
-            <p class="kicker">Reliability</p>
-            <h3>Treat optional services as optional.</h3>
-            <p><strong>Problem:</strong> analytics, donations, and leaderboard persistence should not break the core game. <strong>Decision:</strong> wrap analytics and database access behind no-op or graceful-degradation layers. <strong>Trade-off:</strong> some features report unavailable instead of failing loudly.</p>
+            <p class="kicker">Landing experience</p>
+            <h3>Rebuild the North/South hemisphere transition after it broke.</h3>
+            <p><strong>Problem:</strong> the cinematic transition between the Northern and Southern sky views was planned from the start, but the first implementation broke rather than blending cleanly. <strong>Decision:</strong> keep the effect and fix the transition rather than cutting it. <strong>Trade-off:</strong> extra iteration time on a purely cosmetic piece of the landing hero, for one of its more memorable moments.</p>
           </div>
         </div>
       </section>
@@ -199,7 +209,7 @@
               <li>Mythology and broader sky-culture story text are intentionally absent until reliable sources are added.</li>
               <li>No real-time location-based "Tonight" mode yet.</li>
               <li>Some interaction polish still depends on browser and device capabilities.</li>
-              <li>Personal role, timeline, and learning context are pending owner confirmation.</li>
+              <li>Pre-launch: mainly self-tested by the builder, with informal early feedback from friends and a few subreddit posts.</li>
             </ul>
           </div>
           <div class="card">

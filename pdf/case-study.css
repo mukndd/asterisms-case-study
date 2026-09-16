@@ -116,7 +116,7 @@ h3 {
 }
 
 .section {
-  margin-top: 0.22in;
+  margin-top: 0.14in;
 }
 
 .card {
@@ -171,9 +171,9 @@ li {
 }
 
 .footer {
-  margin-top: 0.18in;
+  margin-top: 0.1in;
   border-top: 1px solid var(--line);
-  padding-top: 0.08in;
+  padding-top: 0.05in;
   color: var(--muted);
   font-size: 8.4pt;
 }

@@ -33,4 +33,4 @@ This export intentionally excludes:
 - screenshots of dashboards, consoles, errors, or local browser chrome
 - internal incidents and recovery details
 
-Personal context is marked pending where the repository cannot verify it.
+Personal context (role, timeline, motivation, usage) came directly from the project owner and is reflected in the case study; anything not confirmed stays out rather than being guessed at.
