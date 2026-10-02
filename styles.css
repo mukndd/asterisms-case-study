@@ -343,10 +343,3 @@ section {
     grid-template-columns: 1fr;
   }
 }
-
-/* values hydrated from the live stats feed */
-[data-live].is-live {
-  text-decoration: underline dotted;
-  text-underline-offset: 4px;
-  cursor: help;
-}

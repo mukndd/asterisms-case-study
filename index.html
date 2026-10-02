@@ -34,8 +34,8 @@
               <span class="pill">Next.js 16.3.4</span>
               <span class="pill">React 19.2.8</span>
               <span class="pill">TypeScript 5.9.3</span>
-              <span class="pill"><span data-live="asterisms.stars">9,042</span> catalogue stars</span>
-              <span class="pill"><span data-live="asterisms.tests">347</span> tests passing</span>
+              <span class="pill">9,042 catalogue stars</span>
+              <span class="pill">347 tests passing</span>
             </div>
             <div class="cta-row">
               <a class="button" href="https://asterisms.space">Live site</a>
@@ -209,10 +209,10 @@
               <h2>Verified catalogue characteristics.</h2>
             </div>
             <div class="grid three">
-              <div class="card stat"><strong data-live="asterisms.patterns">162</strong><span>patterns total</span></div>
+              <div class="card stat"><strong>162</strong><span>patterns total</span></div>
               <div class="card stat"><strong>88</strong><span>IAU constellations</span></div>
               <div class="card stat"><strong>74</strong><span>Western asterisms</span></div>
-              <div class="card stat"><strong data-live="asterisms.stars">9,042</strong><span>unique generated stars</span></div>
+              <div class="card stat"><strong>9,042</strong><span>unique generated stars</span></div>
               <div class="card stat"><strong>27</strong><span>featured daily-eligible patterns</span></div>
               <div class="card stat"><strong>1,056</strong><span>pattern connections</span></div>
             </div>
@@ -230,11 +230,11 @@
           <div class="section-head">
             <p class="eyebrow">Reliability + Quality</p>
             <h2>Current validation status.</h2>
-            <p class="note" id="live-note">Values with a dotted underline are read live from the project's CI and data pipeline when this page loads. Everything else is a snapshot verified on 2 October 2026.</p>
+            <p class="note" id="live-note">Figures on this page were verified on 2 October 2026 from the project's latest passing CI run, its generated data report and the live site.</p>
           </div>
           <ul class="quality grid two">
             <li>Generated data validation passes with zero warnings and zero hard failures.</li>
-            <li>Vitest passes: <span data-live="asterisms.tests">347</span> tests (1 skipped) across 77 test files.</li>
+            <li>Vitest passes: 347 tests (1 skipped) across 77 test files.</li>
             <li>TypeScript check passes with no emitted errors.</li>
             <li>ESLint passes.</li>
             <li>Production build succeeds and generates 1,017 static pages plus dynamic app routes.</li>
@@ -275,26 +275,5 @@
     <footer class="footer">
       <div class="wrap">Public-safe export. No application source code, private repository links, account identifiers, or internal deployment identifiers are included.</div>
     </footer>
-    <script>
-      // Hydrate [data-live] values from the profile's live stats feed. The static
-      // numbers in the HTML are the fallback if the feed is unreachable.
-      (function () {
-        var FEED = "https://raw.githubusercontent.com/mukndd/mukndd/master/stats/data.json";
-        fetch(FEED, { cache: "no-cache" })
-          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
-          .then(function (feed) {
-            document.querySelectorAll("[data-live]").forEach(function (el) {
-              var key = el.getAttribute("data-live").split(".");
-              var project = feed.projects && feed.projects[key[0]];
-              var stat = project && project.stats && project.stats[key[1]];
-              if (!stat || typeof stat.value !== "number") return;
-              el.textContent = stat.value.toLocaleString("en-US") + (stat.suffix || "");
-              el.title = (stat.status === "live" ? "Live" : "Last verified") + " \u00b7 checked " + stat.asOf;
-              el.classList.add("is-live");
-            });
-          })
-          .catch(function () {});
-      })();
-    </script>
   </body>
 </html>

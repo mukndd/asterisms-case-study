@@ -23,8 +23,6 @@ Sources: the project's latest passing CI run on its default branch, the generate
 - Celestial events almanac: 3,604 events covering 2025 to 2036.
 - Astronomy cross-check: Moon and planet positions compared with NASA/JPL Horizons and USNO for five observers and dates (a representative sample, not an ephemeris certification).
 
-`index.html` reads the starred figures live from the profile stats feed (`stats/data.json` in the public profile repository) and falls back to the values above if the feed is unreachable.
-
 ## Public-Safety Notes
 
 This export intentionally excludes:
