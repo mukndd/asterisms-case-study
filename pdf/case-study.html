@@ -10,7 +10,7 @@
       <section class="hero">
         <div>
           <h1>Asterisms</h1>
-          <p class="lead">A web game for learning to read the night sky by connecting real stars into constellations and asterisms.</p>
+          <p class="lead">A web project for learning to read the night sky: puzzle games on a real star catalogue, and a location-aware sky viewer built on the same engine.</p>
           <div class="meta">
             <span class="pill">Role: solo builder</span>
             <span class="pill">Private full-stack product</span>
@@ -28,8 +28,8 @@
 
       <section class="section grid three">
         <div class="card stat"><strong>162</strong><span>generated patterns</span></div>
-        <div class="card stat"><strong>9,036</strong><span>generated stars</span></div>
-        <div class="card stat"><strong>79</strong><span>passing tests</span></div>
+        <div class="card stat"><strong>9,042</strong><span>catalogue stars</span></div>
+        <div class="card stat"><strong>347</strong><span>passing tests</span></div>
       </section>
 
       <section class="section">
@@ -42,7 +42,7 @@
           <div class="node">Compact generated catalogue</div>
         </div>
         <div class="arch" style="margin-top: 0.07in">
-          <div class="node">Browser gameplay</div>
+          <div class="node">Browser gameplay and real-sky viewer</div>
           <div class="arrow">↔</div>
           <div class="node">Next.js API routes</div>
           <div class="arrow">↔</div>
@@ -58,6 +58,7 @@
             <li>Projected RA/Dec with a gnomonic tangent-plane projection, then rotated and scaled patterns without distorting their geometry.</li>
             <li>Made Daily deterministic from UTC date so the puzzle remains playable even if score persistence is unavailable.</li>
             <li>Separated realistic star rendering from touch-friendly SVG hit targets for mobile and desktop play.</li>
+            <li>Built a real-sky layer (Tonight, Seek from 1900 to now, Guided Find, events calendar) on the same catalogue, keeping precise location out of storage, analytics, servers and share links.</li>
           </ul>
         </div>
         <div>
@@ -67,6 +68,7 @@
             <li>Generated data validation reports zero warnings and zero hard failures.</li>
             <li>Database-backed routes degrade gracefully; core gameplay catalogue is static app data.</li>
             <li>CI runs validation, tests, typecheck, lint, and build.</li>
+            <li>Astronomy output spot-checked against NASA/JPL Horizons and USNO for five observers and dates.</li>
           </ul>
         </div>
       </section>
@@ -75,7 +77,7 @@
         <div>
           <h2>Limitations</h2>
           <ul>
-            <li>Not a professional astronomy simulator or location-based observing planner.</li>
+            <li>Not a professional astronomy simulator. Visibility is geometric only: no weather, light pollution, terrain or refraction.</li>
             <li>No accounts; score identity is anonymous and device-local.</li>
             <li>Score validation is a plausibility filter, not full anti-cheat.</li>
             <li>Mythology and broader sky-culture story text are deferred pending reliable sources.</li>
@@ -87,7 +89,7 @@
         </div>
       </section>
 
-      <p class="footer">Public-safe case study. No app source code, credentials, private repository links, account identifiers, or internal deployment identifiers included.</p>
+      <p class="footer">Figures verified 2 October 2026. Public-safe case study. No app source code, credentials, private repository links, account identifiers, or internal deployment identifiers included.</p>
     </main>
   </body>
 </html>

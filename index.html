@@ -13,6 +13,7 @@
         <div class="brand">Asterisms</div>
         <nav class="nav-links">
           <a href="#product">Product</a>
+          <a href="#sky">Real sky</a>
           <a href="#architecture">Architecture</a>
           <a href="#decisions">Decisions</a>
           <a href="#quality">Quality</a>
@@ -26,14 +27,15 @@
           <div class="hero-copy">
             <p class="eyebrow">Recruiter-safe case study</p>
             <h1>Asterisms</h1>
-            <p class="lead">A web game for learning to read the night sky by connecting real stars into constellations and asterisms.</p>
+            <p class="lead">A web project for learning to read the night sky: puzzle games on a real star catalogue, and a location-aware sky viewer built on the same engine.</p>
             <div class="hero-meta">
               <span class="pill">Role: solo builder</span>
               <span class="pill">Project type: private full-stack product</span>
               <span class="pill">Next.js 16.3.4</span>
               <span class="pill">React 19.2.8</span>
               <span class="pill">TypeScript 5.9.3</span>
-              <span class="pill">9,036 generated stars</span>
+              <span class="pill"><span data-live="asterisms.stars">9,042</span> catalogue stars</span>
+              <span class="pill"><span data-live="asterisms.tests">347</span> tests passing</span>
             </div>
             <div class="cta-row">
               <a class="button" href="https://asterisms.space">Live site</a>
@@ -52,7 +54,7 @@
           <div class="section-head">
             <p class="eyebrow">Why I Built It</p>
             <h2>An existing interest, turned into something I could open too.</h2>
-            <p>I already use apps like Stellarium and I'm genuinely into constellations, asterisms, and the Solar System. I wanted that interest to exist as a product I built myself, not just one I used. Asterisms is solo, started about ten days before this case study, and still actively moving - a v2 aimed at real-time, location-based sky viewing is already planned. Working on it also reinforced something simple: there is a lot of good public data sitting around waiting to be turned into an interface people in a given niche actually want to open.</p>
+            <p>I already use apps like Stellarium and I'm genuinely into constellations, asterisms, and the Solar System. I wanted that interest to exist as a product I built myself, not just one I used. Asterisms is solo. It started in early September 2026 as a daily puzzle game, and the real-time, location-based sky viewing I'd planned for a v2 has since shipped (see Real sky below). Working on it also reinforced something simple: there is a lot of good public data sitting around waiting to be turned into an interface people in a given niche actually want to open.</p>
           </div>
         </div>
       </section>
@@ -103,12 +105,40 @@
         </div>
       </section>
 
+      <section id="sky">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="eyebrow">Real sky</p>
+            <h2>From puzzle to a sky you can actually look up at.</h2>
+            <p>The puzzle catalogue turned out to be a good foundation for a real sky viewer. The same star data and projection code now drive four more surfaces, all computed in the browser from the shipped catalogue with Astronomy Engine.</p>
+          </div>
+
+          <div class="grid two">
+            <figure class="shot">
+              <img src="assets/screenshots/explore-1440.png" alt="Explore: an interactive real-sky viewer with constellation artwork, a lit Moon, and a search panel" />
+              <figcaption>Explore, captured from the live site: pan and zoom the catalogue sky, inspect objects, search stars, patterns, the Moon and planets.</figcaption>
+            </figure>
+            <figure class="shot">
+              <img src="assets/screenshots/seek-1440.png" alt="Sky Seek: choosing a past date and time for the sky above a chosen place" />
+              <figcaption>Sky Seek, captured from the live site: pick any observer-local date and time from 1900 to now.</figcaption>
+            </figure>
+          </div>
+
+          <div class="grid two" style="margin-top: 20px">
+            <div class="card"><h3>Tonight</h3><p>A location-aware stargazing guide. Pick a city from an offline index of 69,750 places, grant device location explicitly, or enter coordinates by hand, and get local-night times, what is above the horizon, Moon and planet positions, and rise/set guidance.</p></div>
+            <div class="card"><h3>Seek</h3><p>Choose an observer-local civil time between 1900 and now and the shared renderer recalculates every star, the Moon and the planets for that moment. Repeated daylight-saving times ask which occurrence you mean; skipped clock times are rejected.</p></div>
+            <div class="card"><h3>Guided Find</h3><p>Search a star, constellation, asterism, the Moon or a planet and get its real direction and altitude. It starts with manual cardinal guidance and offers an opt-in phone compass dial with app-only calibration.</p></div>
+            <div class="card"><h3>Events calendar</h3><p>A location-aware guide to notable eclipses, meteor showers, conjunctions and full Moons, built from an almanac of 3,604 events covering 2025 to 2036.</p></div>
+          </div>
+        </div>
+      </section>
+
       <section id="architecture">
         <div class="wrap">
           <div class="section-head">
             <p class="eyebrow">System</p>
             <h2>Static catalogue for gameplay, small runtime database path for scores.</h2>
-            <p>The catalogue is built ahead of time and shipped with the app, so the core learning experience does not depend on live database availability. Runtime persistence is limited to daily challenge rows, anonymous score submissions, and leaderboard reads.</p>
+            <p>The catalogue is built ahead of time and shipped with the app, so the core learning experience does not depend on live database availability. Runtime persistence is limited to daily challenge rows, anonymous score submissions, and leaderboard reads. The real-sky surfaces follow the same rule: positions are computed in the browser, the server only serves catalogue lookups and same-origin city search, and device location is never sent to it.</p>
           </div>
           <img class="diagram" src="assets/diagrams/architecture.svg" alt="Asterisms architecture diagram" />
         </div>
@@ -150,6 +180,24 @@
             <h3>Rebuild the North/South hemisphere transition after it broke.</h3>
             <p><strong>Problem:</strong> the cinematic transition between the Northern and Southern sky views was planned from the start, but the first implementation broke rather than blending cleanly. <strong>Decision:</strong> keep the effect and fix the transition rather than cutting it. <strong>Trade-off:</strong> extra iteration time on a purely cosmetic piece of the landing hero, for one of its more memorable moments.</p>
           </div>
+
+          <div class="decision">
+            <p class="kicker">Location privacy</p>
+            <h3>Never send or store a precise location.</h3>
+            <p><strong>Problem:</strong> a stargazing guide needs an observer position, and a precise one is sensitive. <strong>Decision:</strong> device and manually entered coordinates live only in session memory, never in local storage, analytics or application servers; shared links carry a city ID, time, target and camera angle, but never coordinates. <strong>Trade-off:</strong> a link cannot reproduce a custom GPS position, and city locations are approximate centers.</p>
+          </div>
+
+          <div class="decision">
+            <p class="kicker">Honest visibility</p>
+            <h3>Call it geometric, and define what "visible" means.</h3>
+            <p><strong>Problem:</strong> "above the horizon" is easy to mistake for "you can see it tonight". <strong>Decision:</strong> the UI describes geometric horizon visibility only, a pattern counts as visible when at least 80% of its stars are above the horizon, and the copy never implies clear weather or dark skies. <strong>Trade-off:</strong> the guide is less flashy than one that promises a good view.</p>
+          </div>
+
+          <div class="decision">
+            <p class="kicker">Historical sky</p>
+            <h3>Bound history to 1900 and treat clock time as hard.</h3>
+            <p><strong>Problem:</strong> a sky for a past date is only as good as the time conversion and the catalogue's motion data. <strong>Decision:</strong> Seek works in observer-local civil time from 1900 onward, applies proper motion, makes the user resolve repeated daylight-saving times, and rejects clock times that never existed. <strong>Trade-off:</strong> no pre-1900 skies, rather than a confident answer that is quietly wrong.</p>
+          </div>
         </div>
       </section>
 
@@ -161,17 +209,17 @@
               <h2>Verified catalogue characteristics.</h2>
             </div>
             <div class="grid three">
-              <div class="card stat"><strong>162</strong><span>patterns total</span></div>
+              <div class="card stat"><strong data-live="asterisms.patterns">162</strong><span>patterns total</span></div>
               <div class="card stat"><strong>88</strong><span>IAU constellations</span></div>
               <div class="card stat"><strong>74</strong><span>Western asterisms</span></div>
-              <div class="card stat"><strong>9,036</strong><span>unique generated stars</span></div>
+              <div class="card stat"><strong data-live="asterisms.stars">9,042</strong><span>unique generated stars</span></div>
               <div class="card stat"><strong>27</strong><span>featured daily-eligible patterns</span></div>
-              <div class="card stat"><strong>1,041</strong><span>pattern connections</span></div>
+              <div class="card stat"><strong>1,056</strong><span>pattern connections</span></div>
             </div>
           </div>
           <div class="card">
             <h3>Sources and provenance</h3>
-            <p>The current build uses ConstellationLines for official constellation stick-figure conventions, HYG v4.1 for star positions and stellar properties, Stellarium's Western sky culture for asterism conventions and names, a curated subset of compatible constellation artwork, and Astronomy Engine for live Solar System positions in the landing hero.</p>
+            <p>The current build uses ConstellationLines for official constellation stick-figure conventions, HYG v4.1 for star positions and stellar properties, Stellarium's Western sky culture for asterism conventions and names, a curated subset of compatible constellation artwork, Astronomy Engine for Solar System positions and local rise/set times, and GeoNames (cities5000, CC BY 4.0) for the offline city index.</p>
             <p class="note">The app does not claim to be a professional astronomy simulator. It uses real data for a learning-focused game and documents known content gaps.</p>
           </div>
         </div>
@@ -182,15 +230,17 @@
           <div class="section-head">
             <p class="eyebrow">Reliability + Quality</p>
             <h2>Current validation status.</h2>
+            <p class="note" id="live-note">Values with a dotted underline are read live from the project's CI and data pipeline when this page loads. Everything else is a snapshot verified on 2 October 2026.</p>
           </div>
           <ul class="quality grid two">
             <li>Generated data validation passes with zero warnings and zero hard failures.</li>
-            <li>Vitest passes: 14 test files, 79 tests.</li>
+            <li>Vitest passes: <span data-live="asterisms.tests">347</span> tests (1 skipped) across 77 test files.</li>
             <li>TypeScript check passes with no emitted errors.</li>
             <li>ESLint passes.</li>
-            <li>Production build succeeds and generates 186 static pages plus dynamic app routes.</li>
+            <li>Production build succeeds and generates 1,017 static pages plus dynamic app routes.</li>
             <li>CI runs data validation, tests, typecheck, lint, and build on pushes and pull requests.</li>
-            <li>Security headers, route-level rate limiting, typed analytics wrappers, and database degradation paths are present.</li>
+            <li>Security headers, distributed route-level rate limiting, abuse protection, typed analytics wrappers, and database degradation paths are present.</li>
+              <li>Astronomy output was spot-checked against NASA/JPL Horizons and USNO for five observers and dates: Moon positions agreed to about 0.001°, and Sendai planet positions to under 0.005° in azimuth. A representative sample, not an ephemeris certification.</li>
           </ul>
         </div>
       </section>
@@ -204,17 +254,19 @@
             </div>
             <ul class="limits">
               <li>Not a professional astronomy simulator or observing planner.</li>
+              <li>Visibility is geometric only: weather, clouds, light pollution, terrain and atmospheric refraction are not modeled.</li>
               <li>No accounts; scores are anonymous and device-local identity based.</li>
               <li>Daily score validation is a plausibility filter, not full anti-cheat.</li>
               <li>Mythology and broader sky-culture story text are intentionally absent until reliable sources are added.</li>
-              <li>No real-time location-based "Tonight" mode yet.</li>
+              <li>City locations are approximate centers of populated places, not every village or observing site. Seek stops at 1900.</li>
+              <li>Phone compass alignment is opt-in and experimental; physical-device accuracy is not certified, and the project's own QA notes list broader browser, assistive-technology and device testing as still open.</li>
               <li>Some interaction polish still depends on browser and device capabilities.</li>
               <li>Pre-launch: mainly self-tested by the builder, with informal early feedback from friends and a few subreddit posts.</li>
             </ul>
           </div>
           <div class="card">
             <h3>What this demonstrates</h3>
-            <p>Asterisms shows the ability to translate an unfamiliar scientific domain into a usable product, work across data ingestion, rendering, frontend interaction, API routes, database persistence, deployment, and CI, and keep correctness claims tied to validation rather than marketing language.</p>
+            <p>Asterisms shows the ability to translate an unfamiliar scientific domain into a usable product, work across data ingestion, rendering, frontend interaction, API routes, database persistence, deployment, and CI, and keep correctness claims tied to validation rather than marketing language. It also shows a product growing in a second direction, from a puzzle into a privacy-conscious, real-time sky tool, without rewriting its foundations.</p>
           </div>
         </div>
       </section>
@@ -223,5 +275,26 @@
     <footer class="footer">
       <div class="wrap">Public-safe export. No application source code, private repository links, account identifiers, or internal deployment identifiers are included.</div>
     </footer>
+    <script>
+      // Hydrate [data-live] values from the profile's live stats feed. The static
+      // numbers in the HTML are the fallback if the feed is unreachable.
+      (function () {
+        var FEED = "https://raw.githubusercontent.com/mukndd/mukndd/master/stats/data.json";
+        fetch(FEED, { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+          .then(function (feed) {
+            document.querySelectorAll("[data-live]").forEach(function (el) {
+              var key = el.getAttribute("data-live").split(".");
+              var project = feed.projects && feed.projects[key[0]];
+              var stat = project && project.stats && project.stats[key[1]];
+              if (!stat || typeof stat.value !== "number") return;
+              el.textContent = stat.value.toLocaleString("en-US") + (stat.suffix || "");
+              el.title = (stat.status === "live" ? "Live" : "Last verified") + " \u00b7 checked " + stat.asOf;
+              el.classList.add("is-live");
+            });
+          })
+          .catch(function () {});
+      })();
+    </script>
   </body>
 </html>
